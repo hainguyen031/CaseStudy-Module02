@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="commons-lang3-3.12" type="kotlin.js">
+    <CLASSES />
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/.idea/libraries/commons-lang3-3.12.0-src" />
+    </SOURCES>
+  </library>
+</component>
