@@ -1,19 +1,26 @@
 package entity;
 
+import builder.CarBuilder;
+import service.CarService;
+import service.File.CarFileService;
+
+import java.util.Locale;
+
 public class Car {
     private int id;
-    private static int countId = 1;
+    private static int countId = 0;
     private String brand;
     private String model;
     private int seats;
     private int rentPrice;
     private boolean available = true;
 
+    private int nextCarId() {
+        return CarFileService.getInstance().readCurentIdFromFile();
+    }
     public Car() {
     }
-
     public Car(String brand, String model, int seats, int rentPrice, boolean available) {
-        this.id = countId++;
         this.brand = brand;
         this.model = model;
         this.seats = seats;
@@ -21,13 +28,13 @@ public class Car {
         this.available = available;
     }
 
-    public Car(int id, String brand, String model, int seats, int rentPrice) {
+    public Car(int id, String brand, String model, int seats, int rentPrice, boolean available) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.seats = seats;
         this.rentPrice = rentPrice;
-        this.available = true;
+        this.available = available;
     }
 
     public int getId() {
@@ -79,8 +86,8 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "ID='" + countId + '\'' +
-                "brand='" + brand + '\'' +
+                "ID='" + id + '\'' +
+                ", brand='" + brand + '\'' +
                 ", model='" + model + '\'' +
                 ", seats=" + seats +
                 ", rentalPrice=" + rentPrice +
@@ -88,4 +95,7 @@ public class Car {
     }
 
 
+    public String[] toArray() {
+        return new String[] {String.valueOf(id),brand, model, String.valueOf(seats), String.valueOf(rentPrice), String.valueOf(available)};
+    }
 }

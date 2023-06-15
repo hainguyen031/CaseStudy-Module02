@@ -1,14 +1,14 @@
 package entity;
 
-import java.util.Date;
+import service.CustomerService;
 
 public class Booking {
     private Customer customer;
     private Car car;
-    private Date startDate;
-    private Date endDate;
+    private String startDate;
+    private String endDate;
 
-    public Booking(Customer customer, Car car, Date startDate, Date endDate) {
+    public Booking(Customer customer, Car car, String startDate, String endDate) {
         this.customer = customer;
         this.car = car;
         this.startDate = startDate;
@@ -31,29 +31,46 @@ public class Booking {
         this.car = car;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    @Override
-    public String toString() {
-        return "BookCar{" +
-                "customer=" + customer +
-                ", car=" + car +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+    public void showBookingInfo() {
+        System.out.println("Name customer: " + customer.getName());
+        System.out.println("Phone number: " + customer.getPhone());
+        System.out.println("Email: " + customer.getEmail());
+        System.out.println("CCCD: " + customer.getCccd());
+        System.out.println("GPLX: " + customer.getGplx());
+        System.out.println("Brand car:" + car.getBrand());
+        System.out.println("Model car: " + car.getModel());
+        System.out.println("Seats car:" + car.getSeats());
+        System.out.println("Rental price: " + car.getRentPrice());
+        System.out.println("StartDate: " + startDate);
+        System.out.println("EndDate: " +endDate);
+
+
+    }
+
+    public String[] toArray() {
+        return new String[] {customer.getName(),
+                customer.getCccd(),
+                customer.getGplx(),
+                car.getBrand(),
+                car.getModel(),
+                String.valueOf(car.getSeats()),
+                startDate,
+                endDate};
     }
 }

@@ -1,5 +1,6 @@
 package service;
 
+import entity.Customer;
 import entity.Staff;
 import entity.User;
 import service.File.UserFileService;
@@ -61,6 +62,15 @@ public class UserService {
     }
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+    }
+
+    public Customer getCustomerByUsername(String username) {
+        for (User customer : userList) {
+            if (customer.getUsername().equals(username)) {
+                return (Customer) customer;
+            }
+        }
+        return null;
     }
 
 //    public static boolean register(User user) {

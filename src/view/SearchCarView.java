@@ -55,7 +55,8 @@ public class SearchCarView {
 //                    break;
                 case GO_BACK:
                     //ghi file
-                    CustomerView.getInstance().runCustomerView();
+//                    CustomerView.getInstance().runCustomerView();
+                    BeginView.getInstance().runBeginMenu();
 //                    break;
             }
         }

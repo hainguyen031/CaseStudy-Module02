@@ -1,5 +1,6 @@
 package view;
 
+import service.File.CarFileService;
 import service.File.UserFileService;
 import service.InputService;
 import service.UserService;
@@ -12,14 +13,17 @@ public class BeginView {
 
     private BeginView() {
         UserFileService.getInstance().readUserList();
+        CarFileService.getInstance().readCarList();
     }
 
     public static BeginView getInstance() {
         return beginView;
     }
+
     private final int LOGIN = 1;
     private final int REGISTER = 2;
     private final int EXIT = 3;
+
     public void displayBeginMenu() {
         System.out.println("----- WELCOME TO RENTAL CAR SERVICE -----");
         System.out.println("1. Login");
@@ -29,7 +33,6 @@ public class BeginView {
 
     public void runBeginMenu() {
         int choice = 0;
-
         while (choice != EXIT) {
             displayBeginMenu();
             choice = InputService.getInstance().inputChoice();
@@ -37,7 +40,7 @@ public class BeginView {
                 case LOGIN:
                     if (LoginView.getInstance().displayLoginMenu()) {
                         if (UserService.getInstance().getCurrentUser().getId() == 0) {
-                            StaffView.getInstance().displayStaffView(); // chua lam staff
+                            StaffView.getInstance().runStaffView(); // chua lam staff
                         } else {
                             CustomerView.getInstance().runCustomerView();
                         }

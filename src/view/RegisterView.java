@@ -2,6 +2,7 @@ package view;
 
 import builder.CustomerBuilder;
 import entity.User;
+import service.File.UserFileService;
 import service.InputService;
 import service.UserService;
 
@@ -50,6 +51,8 @@ public class RegisterView {
 
 //        User newUser = new User(username, password, email, phone);
         UserService.getInstance().addNewUser(newUser);
+        UserService.getInstance().setCurrentUser(newUser);
+        UserFileService.getInstance().writeUserList();
 
     }
 }

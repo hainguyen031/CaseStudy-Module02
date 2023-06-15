@@ -23,11 +23,6 @@ public class CarService {
 
     static {
         carList = new ArrayList<>();
-        carList.add(new Car(1, "Toyota", "Fortuner", 7, 1000000));
-        carList.add(new Car(2, "Toyota", "Vios", 4, 700000));
-        carList.add(new Car(3, "Mitsubishi", "Xpander", 7, 900000));
-        carList.add(new Car(4, "MG", "MG5", 4, 600000));
-        carList.add(new Car(5, "Huyndai", "Accent", 4, 650000));
     }
 
     public List<Car> getCarList() {
@@ -47,6 +42,7 @@ public class CarService {
             System.out.println(ele.toString());
         }
     }
+
 
     public void SortCarByPrice() {
         Collections.sort(carList, new SortCarByPrice());
@@ -121,5 +117,23 @@ public class CarService {
         }
         System.out.println("Cannot find the car !");
         CustomerView.getInstance().runCustomerView();
+    }
+
+    public Car getCarById(int newCarIDBook) {
+        for (Car car : CarService.getInstance().getCarList()) {
+            if (car.getId() == newCarIDBook) {
+                return car;
+            }
+        }
+        return null;
+    }
+
+    public Car getCarByModel(String carModel) {
+        for (Car car : carList) {
+            if (car.getModel().equals(carModel)) {
+                return car;
+            }
+        }
+        return null;
     }
 }

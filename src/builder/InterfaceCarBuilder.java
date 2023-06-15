@@ -3,6 +3,7 @@ package builder;
 import entity.Car;
 
 public interface InterfaceCarBuilder {
+    InterfaceCarBuilder id (int id);
     InterfaceCarBuilder brand(String brand);
     InterfaceCarBuilder model(String model);
     InterfaceCarBuilder seats(int seats);

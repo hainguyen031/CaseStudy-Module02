@@ -4,10 +4,8 @@ import builder.CarBuilder;
 import entity.Car;
 import entity.Customer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.SplittableRandom;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,6 +21,9 @@ public class InputService {
     private final String PHONE_REGEX = "^\\d{10}$";
     private final String CCCD_REGEX = "^\\d{12}$";
     private final String GPLX_REGEX = "^\\d{12}$";
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    private final String DATE_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
 
     public static InputService getInstance() {
         return inputService;
@@ -76,6 +77,12 @@ public class InputService {
             case "gplx":
                 regex = GPLX_REGEX;
                 break;
+            case "startdate":
+                regex = DATE_REGEX;
+                break;
+            case "enddate":
+                regex = DATE_REGEX;
+                break;
         }
         Pattern pattern = Pattern.compile(regex);
         String text;
@@ -110,7 +117,7 @@ public class InputService {
         System.out.println("Input car seat: ");
         int seat = Integer.parseInt(scanner.nextLine());
         System.out.println("Input rental car: ");
-        int price =Integer.parseInt(scanner.nextLine());
+        int price = Integer.parseInt(scanner.nextLine());
 //        CarService.getInstance().addCarToList(new Car(brand, model, seat, price, true));
         System.out.println("Add car successful !");
         return CarBuilder.getInstance()
@@ -122,13 +129,6 @@ public class InputService {
                 .build();
     }
 
-    // -------------chua xong------------
-//    public void inputInfoCustomerBooking() {
-//        List<String> customers = new ArrayList<>();
-//        System.out.println("Input CCCD: ");
-//        int cccd = Integer.parseInt(scanner.nextLine());
-//        System.out.println("Input GPLX: ");
-//        String gplx = scanner.nextLine();
-//        return customers.add(cccd, gplx);
-//    }
+
+
 }

@@ -3,17 +3,28 @@ package builder;
 import entity.Car;
 import service.CarService;
 
-public class CarBuilder implements InterfaceCarBuilder{
+public class CarBuilder implements InterfaceCarBuilder {
+    protected int id;
     protected String brand;
     protected String model;
     protected int seats;
     protected int rentprice;
     protected boolean available;
     private static final CarBuilder carBuilder = new CarBuilder();
-    private CarBuilder() {}
+
+    private CarBuilder() {
+    }
+
     public static CarBuilder getInstance() {
         return carBuilder;
     }
+
+    @Override
+    public InterfaceCarBuilder id(int id) {
+        this.id = id;
+        return this;
+    }
+
     @Override
     public InterfaceCarBuilder brand(String brand) {
         this.brand = brand;
@@ -46,6 +57,6 @@ public class CarBuilder implements InterfaceCarBuilder{
 
     @Override
     public Car build() {
-        return new Car(brand, model, seats, rentprice, available);
+        return new Car(id, brand, model, seats, rentprice, available);
     }
 }
