@@ -24,9 +24,9 @@ public class SearchBySeat implements Search{
 
     private List<Integer> SearchBySeat() {
         List<Integer> result = new ArrayList<>();
-        String model = InputService.getInstance().inputInfo("seat");
+        int seat = Integer.parseInt(InputService.getInstance().inputInfo("seat"));
         for (Car car : CarService.getInstance().getCarList()) {
-            if (car.getModel().contains(model) && (car.isAvailable())) {
+            if ((car.getSeats() == seat) && (car.isAvailable())) {
                 result.add(car.getId());
             }
         }

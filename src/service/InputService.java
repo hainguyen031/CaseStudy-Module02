@@ -17,7 +17,7 @@ public class InputService {
     private final String NAME_REGEX = "^[a-zA-Z\\s]+";
     private final String EMAIL_REGEX = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
     private final String MODEL_REGEX = "^[a-zA-Z0-9]+";
-    private final String SEAT_REGEX = "^\\d[0-9]+";
+    private final String SEAT_REGEX = "^[0-9]+";
     private final String PHONE_REGEX = "^\\d{10}$";
     private final String CCCD_REGEX = "^\\d{12}$";
     private final String GPLX_REGEX = "^\\d{12}$";

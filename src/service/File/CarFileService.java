@@ -54,7 +54,6 @@ public class CarFileService {
 
     public void writeCarList() {
         if (isCarExist()) {
-            System.out.println("Car already exists. Cannot append to file.");
             return;
         }
         try {

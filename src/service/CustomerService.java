@@ -42,7 +42,7 @@ public class CustomerService extends Customer {
         Booking booking = new Booking((Customer) UserService.getInstance().getCurrentUser(), newCar, startDate, endDate);
         BookingService.getInstance().getBookingList().add(booking);
         newCar.setAvailable(false);
-        System.out.println("Booking successful. Your booking details:");
+        System.out.println("-----Booking successful. Your booking details-----");
         booking.showBookingInfo();
     }
 }

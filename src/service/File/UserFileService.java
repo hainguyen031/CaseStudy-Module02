@@ -53,7 +53,6 @@ public class UserFileService {
 
     public void writeUserList() {
         if (isUserExist()) {
-            System.out.println("User already exists. Cannot append to file.");
             return;
         }
         try {

@@ -39,7 +39,9 @@ public class CarService {
 
     public void showList() {
         for (Car ele : carList) {
-            System.out.println(ele.toString());
+            if (ele.isAvailable()) {
+                System.out.println(ele.toString());
+            }
         }
     }
 
@@ -63,7 +65,11 @@ public class CarService {
             for (Car car : carList) {
                 for (Integer element : carID) {
                     if (car.getId() == element) {
-                        System.out.println(element + ". " +car.getBrand() + " " + car.getRentPrice());
+                        System.out.println("ID:" + element + ". "
+                                + car.getBrand() + " "
+                                + car.getModel() + " "
+                                + car.getSeats() + " "
+                                + car.getRentPrice());
                         break;
                     }
                 }
@@ -78,7 +84,11 @@ public class CarService {
             for (Car car : carList) {
                 for (Integer element : carId) {
                     if (car.getId() == element) {
-                        System.out.println(element + ". " +car.getBrand() +" " + car.getModel());
+                        System.out.println("ID:" + element + ". "
+                                + car.getBrand() + " "
+                                + car.getModel() + " "
+                                + car.getSeats() + " "
+                                + car.getRentPrice());
                         break;
                     }
                 }
@@ -93,7 +103,11 @@ public class CarService {
             for (Car car : carList) {
                 for (Integer element : cariD) {
                     if (car.getId() == element) {
-                        System.out.println(element + ". " +car.getBrand() +" " + car.getSeats());
+                        System.out.println("ID:" + element + ". "
+                                + car.getBrand() + " "
+                                + car.getModel() + " "
+                                + car.getSeats() + " "
+                                + car.getRentPrice());
                         break;
                     }
                 }
@@ -105,6 +119,7 @@ public class CarService {
         int id = InputService.getInstance().inputCarID();
         for (Car car : carList) {
             if (car.getId() == id) {
+                System.out.println("-----Detail car-----");
                 System.out.println("ID: " + car.getId());
                 System.out.println("Brand: " + car.getBrand());
                 System.out.println("Model: " + car.getModel());
