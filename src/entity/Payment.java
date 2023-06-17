@@ -3,14 +3,17 @@ package entity;
 import java.time.LocalDate;
 
 public class Payment {
+    private String username;
+    private String phone;
+    private String email;
     private int carId;
     private String brand;
     private String model;
-    private int rentPrice;
-    private int surcharge;
     private LocalDate startDate;
     private LocalDate endDate;
     private int numberOfDays;
+    private int rentPrice;
+    private int surcharge;
     private int total;
 
     public Payment(int carId, String brand, String model, int rentPrice, LocalDate startDate, LocalDate endDate, int numberOfDays, int total) {
@@ -24,12 +27,51 @@ public class Payment {
         this.total = total;
     }
 
+    public Payment(String username, String phone, String email, int carId, String brand, String model, LocalDate startDate, LocalDate endDate, int numberOfDays, int rentPrice, int surcharge, int total) {
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
+        this.carId = carId;
+        this.brand = brand;
+        this.model = model;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.numberOfDays = numberOfDays;
+        this.rentPrice = rentPrice;
+        this.surcharge = surcharge;
+        this.total = total;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public int getCarId() {
         return carId;
     }
 
     public void setCarId(int carId) {
-        carId = carId;
+        this.carId = carId;
     }
 
     public String getBrand() {
@@ -54,6 +96,14 @@ public class Payment {
 
     public void setRentPrice(int rentPrice) {
         this.rentPrice = rentPrice;
+    }
+
+    public int getSurcharge() {
+        return surcharge;
+    }
+
+    public void setSurcharge(int surcharge) {
+        this.surcharge = surcharge;
     }
 
     public LocalDate getStartDate() {
@@ -88,11 +138,17 @@ public class Payment {
         this.total = total;
     }
 
-    public int getSurcharge() {
-        return surcharge;
-    }
-
-    public void setSurcharge(int surcharge) {
-        this.surcharge = surcharge;
+    public String[] toArray() {
+        return new String[] {username,
+                phone,
+                email,
+                String.valueOf(carId), brand, model,
+                String.valueOf(startDate),
+                String.valueOf(endDate),
+                String.valueOf(numberOfDays),
+                String.valueOf(rentPrice),
+                String.valueOf(surcharge),
+                String.valueOf(total)
+        };
     }
 }

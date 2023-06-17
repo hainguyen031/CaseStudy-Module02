@@ -57,7 +57,9 @@ public class StaffService {
             int total = car.getRentPrice() * numberOfDays;
 
             int surcharge = confirmRentalReturn();
-
+            System.out.println("Customer: " + bookingCar.getCustomer().getUsername());
+            System.out.println("Phone: " + bookingCar.getCustomer().getPhone());
+            System.out.println("Email: " + bookingCar.getCustomer().getEmail());
             System.out.println("ID car: " + car.getId());
             System.out.println("Brand car: " + car.getBrand());
             System.out.println("Model car: " + car.getModel());
@@ -65,11 +67,20 @@ public class StaffService {
             System.out.println("End date rental: " + endDate);
             System.out.println("Total date rental: " + numberOfDays);
             System.out.println("Rental price: " + car.getRentPrice());
-            System.out.println("Surcharge (if any): " + surcharge );
-            System.out.println("Total pay:" + total + surcharge);
+            System.out.println("Surcharge (if any): " + surcharge);
+            System.out.println("Total pay:" + (total + surcharge));
             car.setAvailable(true);
-            Payment payment = new Payment(car.getId(), car.getBrand(), car.getModel(), car.getRentPrice(), startDate, endDate, numberOfDays, total);
-            payment.setSurcharge(surcharge);
+            Payment payment = new Payment(bookingCar.getCustomer().getUsername(),
+                    bookingCar.getCustomer().getPhone(),
+                    bookingCar.getCustomer().getEmail(),
+                    car.getId(), car.getBrand(),
+                    car.getModel(),
+                    startDate,
+                    endDate,
+                    numberOfDays,
+                    car.getRentPrice(),
+                    surcharge,
+                    total);
             PaymentService.getInstance().getPaymentList().add(payment);
             BookingService.getInstance().getBookingList().remove(bookingCar);
             BookingFileService.getInstance().writeBookingList();

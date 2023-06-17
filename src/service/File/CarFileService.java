@@ -62,7 +62,6 @@ public class CarFileService {
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
-            List<Car> carList = CarService.getInstance().getCarList();
             for (Car car : CarService.getInstance().getCarList()) {
                 String[] carStringArray = car.toArray();
                 csvWriter.writeNext(carStringArray);
@@ -92,6 +91,7 @@ public class CarFileService {
                             .seats(Integer.parseInt(dataList[3]))
                             .rentPrice(Integer.parseInt(dataList[4]))
                             .available(Boolean.parseBoolean(dataList[5]))
+                            .describe(dataList[6])
                             .build();
                     CarService.getInstance().getCarList().add(newCar);
                 }

@@ -26,8 +26,6 @@ public class BookingFileService {
 
     public BookingFileService() {}
 
-    List<Booking> bookingList = BookingService.getInstance().getBookingList();
-
     public static BookingFileService getInstance() {
         return bookingFileService;
     }
@@ -39,8 +37,8 @@ public class BookingFileService {
             String[] data;
             while ((data = csvReader.readNext()) != null) {
                 if (data.length >= 2) {
-                    String id = data[3];
-                    LocalDate startDate = LocalDate.parse(data[5]);
+                    String id = data[5];
+                    LocalDate startDate = LocalDate.parse(data[10]);
                     for (Booking booking : BookingService.getInstance().getBookingList()) {
                         if (booking.getId() == Integer.parseInt(id) && startDate.equals(booking.getStartDate())) {
                             return true;
@@ -70,18 +68,19 @@ public class BookingFileService {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
             for (Booking booking : BookingService.getInstance().getBookingList()) {
-                String[] bookingData = {
-                        booking.getCustomer().getUsername(),
-                        booking.getCustomer().getPhone(),
-                        booking.getCustomer().getEmail(),
-                        String.valueOf(booking.getCar().getId()),
-                        booking.getCar().getModel(),
-                        String.valueOf(booking.getStartDate()),
-                        String.valueOf(booking.getEndDate()),
-                        //booking.getPickupLocation(),
-                        String.valueOf(booking.getDeposit())
-                };
-                csvWriter.writeNext(bookingData);
+//                String[] bookingData = {
+//                        booking.getCustomer().getUsername(),
+//                        booking.getCustomer().getPhone(),
+//                        booking.getCustomer().getEmail(),
+//                        String.valueOf(booking.getCar().getId()),
+//                        booking.getCar().getModel(),
+//                        String.valueOf(booking.getStartDate()),
+//                        String.valueOf(booking.getEndDate()),
+//                        booking.getPickupLocation(),
+//                        String.valueOf(booking.getDeposit())
+//                };
+                String[] data = booking.toArray();
+                csvWriter.writeNext(data);
             }
             csvWriter.close();
             fileWriter.close();
@@ -98,22 +97,37 @@ public class BookingFileService {
             String[] bookingData;
             while ((bookingData = csvReader.readNext()) != null) {
                 if (bookingData.length >= 2) {
-                    String username = bookingData[0];
-                    String phone = bookingData[1];
-                    String email = bookingData[2];
-                    String id = bookingData[3];
-                    String carModel = bookingData[4];
-                    LocalDate startDate = LocalDate.parse(bookingData[5]);
-                    LocalDate endDate = LocalDate.parse(bookingData[6]);
-                    //String pickupLocation = bookingData[7];
-                    String deposit = bookingData[7];
-                    // Tạo đối tượng Booking từ thông tin đọc được
-                    Customer customer = UserService.getInstance().getCustomerByUsername(username);
-                    Car car = CarService.getInstance().getCarById(Integer.parseInt(id));
-                    Booking booking = new Booking(customer, car, startDate, endDate);
-                    //booking.setPickupLocation(pickupLocation);
-                    //booking.setDeposit(Integer.parseInt(deposit));
-                    BookingService.getInstance().getBookingList().add(booking);
+//                    String username = bookingData[0];
+//                    String phone = bookingData[1];
+//                    String email = bookingData[2];
+//                    String id = bookingData[3];
+//                    String carModel = bookingData[4];
+//                    LocalDate startDate = LocalDate.parse(bookingData[5]);
+//                    LocalDate endDate = LocalDate.parse(bookingData[6]);
+//                    String pickupLocation = bookingData[7];
+//                    String deposit = bookingData[8];
+//                    // Tạo đối tượng Booking từ thông tin đọc được
+//                    Customer customer = UserService.getInstance().getCustomerByUsername(username);
+//                    Car car = CarService.getInstance().getCarById(Integer.parseInt(id));
+//                    Booking booking = new Booking(customer, car, startDate, endDate, pickupLocation);
+//                    BookingService.getInstance().getBookingList().add(booking);
+                    Booking newBooking = BookingBuilder.getInstance()
+                            .username(bookingData[0])
+                            .phone(bookingData[1])
+                            .email(bookingData[2])
+                            .cccd(bookingData[3])
+                            .gplx(bookingData[4])
+                            .carId(Integer.parseInt(bookingData[5]))
+                            .brand(bookingData[6])
+                            .model(bookingData[7])
+                            .seat(Integer.parseInt(bookingData[8]))
+                            .rentalPrice(Integer.parseInt(bookingData[9]))
+                            .startDate(LocalDate.parse(bookingData[10]))
+                            .endDate(LocalDate.parse(bookingData[11]))
+                            .pickupLocation(bookingData[12])
+                            .deposit(Integer.parseInt(bookingData[13]))
+                            .build();
+                    BookingService.getInstance().getBookingList().add(newBooking);
                 }
             }
             csvReader.close();

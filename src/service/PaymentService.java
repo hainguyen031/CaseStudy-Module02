@@ -11,18 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentService {
+    private static List<Payment> paymentList;
     private final static PaymentService paymentService = new PaymentService();
 
     private PaymentService() {
-        paymentList = new ArrayList<>();
     }
 
     public static PaymentService getInstance() {
-        paymentList = new ArrayList<>();
         return paymentService;
     }
-
-    private static List<Payment> paymentList;
+    static {
+        paymentList = new ArrayList<>();
+    }
 
     public List<Payment> getPaymentList() {
         return paymentList;

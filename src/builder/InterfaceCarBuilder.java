@@ -9,5 +9,6 @@ public interface InterfaceCarBuilder {
     InterfaceCarBuilder seats(int seats);
     InterfaceCarBuilder rentPrice(int rentPrice);
     InterfaceCarBuilder available(boolean available);
+    InterfaceCarBuilder describe(String describe);
     Car build();
 }

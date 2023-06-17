@@ -10,6 +10,7 @@ public class CarBuilder implements InterfaceCarBuilder {
     protected int seats;
     protected int rentprice;
     protected boolean available;
+    protected String describe;
     private static final CarBuilder carBuilder = new CarBuilder();
 
     private CarBuilder() {
@@ -56,7 +57,13 @@ public class CarBuilder implements InterfaceCarBuilder {
     }
 
     @Override
+    public InterfaceCarBuilder describe(String describe) {
+        this.describe = describe;
+        return this;
+    }
+
+    @Override
     public Car build() {
-        return new Car(id, brand, model, seats, rentprice, available);
+        return new Car(id, brand, model, seats, rentprice, available, describe);
     }
 }

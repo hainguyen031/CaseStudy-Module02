@@ -64,9 +64,9 @@ public class CustomerView {
                     System.out.println("Logout successfully !");
                     UserFileService.getInstance().writeUserList();
                     BookingFileService.getInstance().writeBookingList();
-                    PaymentFileService.getInstance().writePaymentFile();
-                    CarFileService.getInstance().writeCarList();
-//                    BeginView.getInstance().runBeginMenu();
+//                    PaymentFileService.getInstance().writePaymentFile();
+//                    CarFileService.getInstance().writeCarList();
+                    BeginView.getInstance().runBeginMenu();
                     break;
                 default:
                     System.out.println("Invalid input");

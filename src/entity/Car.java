@@ -4,6 +4,7 @@ import builder.CarBuilder;
 import service.CarService;
 import service.File.CarFileService;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class Car {
@@ -14,6 +15,7 @@ public class Car {
     private int seats;
     private int rentPrice;
     private boolean available = true;
+    private String describe;
 
     private int nextCarId() {
         return CarFileService.getInstance().readCurentIdFromFile();
@@ -30,15 +32,22 @@ public class Car {
         this.available = available;
     }
 
-    public Car(int id, String brand, String model, int seats, int rentPrice, boolean available) {
+    public Car(int id, String brand, String model, int seats, int rentPrice, boolean available, String describe) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.seats = seats;
         this.rentPrice = rentPrice;
         this.available = available;
+        this.describe = describe;
     }
-
+    public Car(int id, String brand, String model, int seats, int rentPrice) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.seats = seats;
+        this.rentPrice = rentPrice;
+    }
     public int getId() {
         return id;
     }
@@ -87,6 +96,14 @@ public class Car {
         this.available = available;
     }
 
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -110,6 +127,6 @@ public class Car {
     }
 
     public String[] toArray() {
-        return new String[]{String.valueOf(id), brand, model, String.valueOf(seats), String.valueOf(rentPrice), String.valueOf(available)};
+        return new String[]{String.valueOf(id), brand, model, String.valueOf(seats), String.valueOf(rentPrice), String.valueOf(available), describe};
     }
 }

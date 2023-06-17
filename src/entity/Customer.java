@@ -29,6 +29,13 @@ public class Customer extends User {
         this.gplx = gplx;
     }
 
+    public Customer(String username, String phone, String email, String cccd, String gplx) {
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
+        this.cccd = cccd;
+        this.gplx = gplx;
+    }
 
 
     public String getName() {

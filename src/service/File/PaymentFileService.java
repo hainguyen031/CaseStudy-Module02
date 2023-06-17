@@ -1,5 +1,6 @@
 package service.File;
 
+import builder.PaymentBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
@@ -23,7 +24,6 @@ public class PaymentFileService {
         return paymentFileService;
     }
 
-    List<Payment> paymentList = PaymentService.getInstance().getPaymentList();
     private final String PAYMENT_FILEPATH = "E:\\CODEGYM\\CaseStudy-Module02\\src\\data\\payment.csv";
 
     public boolean isPaymentExist() {
@@ -33,8 +33,8 @@ public class PaymentFileService {
             String[] data;
             while ((data = csvReader.readNext()) != null) {
                 if (data.length >= 2) {
-                    String carID = data[0];
-                    LocalDate startDate = LocalDate.parse(data[4]);
+                    String carID = data[3];
+                    LocalDate startDate = LocalDate.parse(data[6]);
                     for (Payment payment : PaymentService.getInstance().getPaymentList()) {
                         if ((payment.getCarId() == Integer.parseInt(carID)) && startDate.equals(payment.getStartDate())) {
                             return true;
@@ -63,17 +63,8 @@ public class PaymentFileService {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
 
-            for (Payment payment : paymentList) {
-                String[] data = {
-                        String.valueOf(payment.getCarId()),
-                        payment.getBrand(),
-                        payment.getModel(),
-                        String.valueOf(payment.getRentPrice()),
-                        String.valueOf(payment.getStartDate()),
-                        String.valueOf(payment.getEndDate()),
-                        String.valueOf(payment.getNumberOfDays()),
-                        String.valueOf(payment.getTotal())
-                };
+            for (Payment payment : PaymentService.getInstance().getPaymentList()) {
+                String[] data = payment.toArray();
                 csvWriter.writeNext(data);
             }
             csvWriter.close();
@@ -93,15 +84,20 @@ public class PaymentFileService {
             String[] data;
             while ((data = csvReader.readNext()) != null) {
                 if (data.length >= 2) {
-                    int carId = Integer.parseInt(data[0]);
-                    String brand = data[1];
-                    String model = data[2];
-                    int rentPrice = Integer.parseInt(data[3]);
-                    LocalDate startDate = LocalDate.parse(data[4]);
-                    LocalDate endDate = LocalDate.parse(data[5]);
-                    int numberOfDays = Integer.parseInt(data[6]);
-                    int total = Integer.parseInt(data[7]);
-                    Payment newPayment = new Payment(carId, brand, model, rentPrice, startDate, endDate, numberOfDays, total);
+                    Payment newPayment = PaymentBuilder.getInstance()
+                            .username(data[0])
+                            .phone(data[1])
+                            .email(data[2])
+                            .carId(Integer.parseInt(data[3]))
+                            .brand(data[4])
+                            .model(data[5])
+                            .startDate(LocalDate.parse(data[6]))
+                            .endDate(LocalDate.parse(data[7]))
+                            .numberOfDays(Integer.parseInt(data[8]))
+                            .rentalPrice(Integer.parseInt(data[9]))
+                            .surcharge(Integer.parseInt(data[10]))
+                            .total(Integer.parseInt(data[11]))
+                            .build();
                     PaymentService.getInstance().getPaymentList().add(newPayment);
                 }
             }

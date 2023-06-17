@@ -13,11 +13,13 @@ public class Booking {
     private String pickupLocation;
     private int deposit;
 
-    public Booking(Customer customer, Car car, LocalDate startDate, LocalDate endDate) {
+    public Booking(Customer customer, Car car, LocalDate startDate, LocalDate endDate, String pickupLocation, int deposit) {
         this.customer = customer;
         this.car = car;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.pickupLocation = pickupLocation;
+        this.deposit = deposit;
     }
 
     public Customer getCustomer() {
@@ -82,6 +84,7 @@ public class Booking {
         System.out.println("Email: " + customer.getEmail());
         System.out.println("CCCD: " + customer.getCccd());
         System.out.println("GPLX: " + customer.getGplx());
+        System.out.println("Car ID: " + car.getId());
         System.out.println("Brand car:" + car.getBrand());
         System.out.println("Model car: " + car.getModel());
         System.out.println("Seats car:" + car.getSeats());
@@ -89,21 +92,26 @@ public class Booking {
         System.out.println("StartDate: " + startDate);
         System.out.println("EndDate: " + endDate);
         System.out.println("Pickup location: " + pickupLocation);
-        System.out.println("The deposit for car rental is: 5000000 (in words: five million dong)");
+        System.out.println("The deposit for car rental is: 5000000");
 
 
     }
 
     public String[] toArray() {
-        return new String[]{customer.getName(),
+        return new String[]{customer.getUsername(),
+                customer.getPhone(),
+                customer.getEmail(),
                 customer.getCccd(),
                 customer.getGplx(),
+                String.valueOf(car.getId()),
                 car.getBrand(),
                 car.getModel(),
                 String.valueOf(car.getSeats()),
+                String.valueOf(car.getRentPrice()),
                 String.valueOf(startDate),
                 String.valueOf(endDate),
                 pickupLocation,
-                String.valueOf(deposit)};
+                String.valueOf(deposit)
+        };
     }
 }

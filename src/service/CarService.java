@@ -69,16 +69,16 @@ public class CarService {
 
     public void displayCarListByIdWithPrice(List<Integer> carID) {
         if (carID.isEmpty()) {
-            System.out.println("No such car");
+            System.out.println("Car not found");
         } else {
             for (Car car : carList) {
                 for (Integer element : carID) {
                     if (car.getId() == element) {
                         System.out.println("ID:" + element + ". "
-                                + car.getBrand() + " "
-                                + car.getModel() + " "
-                                + car.getSeats() + " "
-                                + car.getRentPrice());
+                                + "Brand:" + car.getBrand() + " "
+                                + "Model:" + car.getModel() + " "
+                                + "Seat:" + car.getSeats() + " "
+                                + "Rental price:" + car.getRentPrice());
                         break;
                     }
                 }
@@ -88,16 +88,16 @@ public class CarService {
 
     public void displayCarListByIdWithModel(List<Integer> carId) {
         if (carId.isEmpty()) {
-            System.out.println("No such car");
+            System.out.println("Car not found");
         } else {
             for (Car car : carList) {
                 for (Integer element : carId) {
                     if (car.getId() == element) {
                         System.out.println("ID:" + element + ". "
-                                + car.getBrand() + " "
-                                + car.getModel() + " "
-                                + car.getSeats() + " "
-                                + car.getRentPrice());
+                                + "Brand:" + car.getBrand() + " "
+                                + "Model:" + car.getModel() + " "
+                                + "Seat:" + car.getSeats() + " "
+                                + "Rental price:" + car.getRentPrice());
                         break;
                     }
                 }
@@ -107,16 +107,16 @@ public class CarService {
 
     public void displayCarListByIdWithSeat(List<Integer> cariD) {
         if (cariD.isEmpty()) {
-            System.out.println("No such car");
+            System.out.println("Car not found");
         } else {
             for (Car car : carList) {
                 for (Integer element : cariD) {
                     if (car.getId() == element) {
                         System.out.println("ID:" + element + ". "
-                                + car.getBrand() + " "
-                                + car.getModel() + " "
-                                + car.getSeats() + " "
-                                + car.getRentPrice());
+                                + "Brand:" + car.getBrand() + " "
+                                + "Model:" + car.getModel() + " "
+                                + "Seat:" + car.getSeats() + " "
+                                + "Rental price:" + car.getRentPrice());
                         break;
                     }
                 }
@@ -135,6 +135,7 @@ public class CarService {
                 System.out.println("Seat: " + car.getSeats());
                 System.out.println("Rental price: " + car.getRentPrice());
                 System.out.println("Available: " + car.isAvailable());
+                System.out.println("Describe: " + car.getDescribe());
                 CustomerView.getInstance().runCustomerView();
                 break;
             }

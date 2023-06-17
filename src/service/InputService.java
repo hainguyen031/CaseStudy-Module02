@@ -142,6 +142,9 @@ public class InputService {
         int seat = Integer.parseInt(scanner.nextLine());
         System.out.println("Input rental car: ");
         int price = Integer.parseInt(scanner.nextLine());
+        System.out.println("Input describe car: ");
+        String descri = scanner.nextLine();
+        //String[] describe = new String[]{descri};
 //        CarService.getInstance().addCarToList(new Car(brand, model, seat, price, true));
         System.out.println("Add car successful !");
         return CarBuilder.getInstance()
@@ -150,6 +153,7 @@ public class InputService {
                 .seats(seat)
                 .rentPrice(price)
                 .available(true)
+                .describe(descri)
                 .build();
     }
 

@@ -63,9 +63,10 @@ public class BookingService {
         LocalDate endDate = InputService.getInstance().inputDate();
         String pickupLocation = InputService.getInstance().inputInfo("pickupLocation");
         newCar.setAvailable(false);
-        Booking booking = new Booking((Customer) UserService.getInstance().getCurrentUser(), newCar, startDate, endDate);
+        int deposit = 5000000;
+        Booking booking = new Booking((Customer) UserService.getInstance().getCurrentUser(), newCar, startDate, endDate, pickupLocation, deposit);
         booking.setId(newCarIDBook);
-        booking.setDeposit(5000000);
+
         booking.setPickupLocation(pickupLocation);
         BookingService.getInstance().getBookingList().add(booking);
         BookingFileService.getInstance().writeBookingList();
