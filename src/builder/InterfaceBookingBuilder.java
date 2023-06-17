@@ -4,6 +4,8 @@ import entity.Booking;
 import entity.Car;
 import entity.Customer;
 
+import java.time.LocalDate;
+
 public interface InterfaceBookingBuilder {
     InterfaceBookingBuilder name(String name);
     InterfaceBookingBuilder cccd(String cccd);
@@ -12,8 +14,8 @@ public interface InterfaceBookingBuilder {
     InterfaceBookingBuilder model(String model);
     InterfaceBookingBuilder seat(String seat);
     InterfaceBookingBuilder rentalPrice(String rentalPrice);
-    InterfaceBookingBuilder startDate(String startDate);
-    InterfaceBookingBuilder endDate(String endDate);
+    InterfaceBookingBuilder startDate(LocalDate startDate);
+    InterfaceBookingBuilder endDate(LocalDate endDate);
     Booking build();
     InterfaceBookingBuilder customer(Customer customer);
     InterfaceBookingBuilder car(Car car);

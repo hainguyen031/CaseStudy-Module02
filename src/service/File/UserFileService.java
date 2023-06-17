@@ -56,13 +56,13 @@ public class UserFileService {
             return;
         }
         try {
-            FileWriter fileWriter = new FileWriter(new File(USER_FILEPATH), true);
+            FileWriter fileWriter = new FileWriter(new File(USER_FILEPATH));
             CSVWriter csvWriter = new CSVWriter(fileWriter, CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
             List<User> userList = UserService.getInstance().getUserList();
-            for (User user : UserService.getInstance().getUserList()) {  //null point
+            for (User user : UserService.getInstance().getUserList()) {
                 if (user.getUsername().equals("staff")) {
                     continue;
                 }

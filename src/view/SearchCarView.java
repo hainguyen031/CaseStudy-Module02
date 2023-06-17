@@ -55,9 +55,10 @@ public class SearchCarView {
 //                    break;
                 case GO_BACK:
                     //ghi file
-//                    CustomerView.getInstance().runCustomerView();
-                    BeginView.getInstance().runBeginMenu();
+                    CustomerView.getInstance().runCustomerView();
 //                    break;
+                default:
+                    System.out.println("Invalid input");
             }
         }
     }

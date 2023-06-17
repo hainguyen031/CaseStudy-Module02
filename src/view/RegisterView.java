@@ -20,8 +20,19 @@ public class RegisterView {
     }
 
     public void displayRegisterMenu() {
+        boolean isExistUser = true;
         System.out.println("-----REGISTER-----");
-        String username = InputService.getInstance().inputInfo("username");
+        String username = "";
+        while (isExistUser) {
+            isExistUser = false;
+            username = InputService.getInstance().inputInfo("username");
+            for (User user : UserService.getInstance().getUserList()) {
+                if (username.equals(user.getUsername())) {
+                    System.out.println("Username has been used. Try with another one");
+                    isExistUser = true;
+                }
+            }
+        }
         String password = InputService.getInstance().inputInfo("password");
         String name = InputService.getInstance().inputInfo("name");
         String email = "";

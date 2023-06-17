@@ -18,8 +18,10 @@ public class Car {
     private int nextCarId() {
         return CarFileService.getInstance().readCurentIdFromFile();
     }
+
     public Car() {
     }
+
     public Car(String brand, String model, int seats, int rentPrice, boolean available) {
         this.brand = brand;
         this.model = model;
@@ -76,6 +78,7 @@ public class Car {
     public void setRentPrice(int rentPrice) {
         this.rentPrice = rentPrice;
     }
+
     public boolean isAvailable() {
         return available;
     }
@@ -83,6 +86,7 @@ public class Car {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -94,8 +98,18 @@ public class Car {
                 '}';
     }
 
+    public String toStringForStaff() {
+        return "Car{" +
+                "ID='" + id + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", seats=" + seats +
+                ", rentalPrice=" + rentPrice +
+                ", available=" + available +
+                '}';
+    }
 
     public String[] toArray() {
-        return new String[] {String.valueOf(id),brand, model, String.valueOf(seats), String.valueOf(rentPrice), String.valueOf(available)};
+        return new String[]{String.valueOf(id), brand, model, String.valueOf(seats), String.valueOf(rentPrice), String.valueOf(available)};
     }
 }

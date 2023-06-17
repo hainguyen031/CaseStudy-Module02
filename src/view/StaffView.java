@@ -2,7 +2,9 @@ package view;
 
 import service.CarService;
 import service.CustomerService;
+import service.File.BookingFileService;
 import service.File.CarFileService;
+import service.File.PaymentFileService;
 import service.InputService;
 import service.StaffService;
 
@@ -11,6 +13,9 @@ public class StaffView {
     private final int ADD_CAR = 1;
     private final int DELETE_CAR = 2;
     private final int SHOW_LIST_CAR = 3;
+    private final int PAYMENT = 5;
+    private final int ORDER_RENTAL_LOCATION = 4;
+    private final int LOGOUT = 6;
     private StaffView() {}
     public static StaffView getInstance() {
         return staffView;
@@ -20,18 +25,15 @@ public class StaffView {
         System.out.println("1. Add car");
         System.out.println("2. Delete car");
         System.out.println("3. Show list car");
-        System.out.println("4. tình trạng xe");
-        System.out.println("5. tạo đơn giao xe tới điểm thuê");
-        System.out.println("6. Xác nhận tình trạng xe khi cho thuê");
-        System.out.println("7. Thanh toán");
-        System.out.println("8. Exit");
+        System.out.println("4. Create an order to deliver the car to the rental point");
+        System.out.println("5. Payment");
+        System.out.println("6. Logout");
     }
     public void runStaffView() {
         int choice = 0;
-        while (choice != 8) {
+        while (choice != LOGOUT) {
             displayStaffView();
             choice = InputService.getInstance().inputChoice();
-
             switch (choice) {
                 case ADD_CAR:
                     StaffService.getInstance().addCar();
@@ -42,20 +44,22 @@ public class StaffView {
                     CarFileService.getInstance().writeCarList();
                     break;
                 case SHOW_LIST_CAR:
-                    CarService.getInstance().showList();
+                    CarService.getInstance().showListForStaff();
                     break;
-                case 4:
-
+                case ORDER_RENTAL_LOCATION:
+                    StaffService.getInstance().orderRentalLocation(); //chua xong
                     break;
-                case 5:
-
+                case PAYMENT:
+                    StaffService.getInstance().processPayment();
                     break;
-                case 6:
-
-                    break;
-                case 8:
+                case LOGOUT:
+                    System.out.println("Logout successfully !");
                     CarFileService.getInstance().writeCarList();
+                    PaymentFileService.getInstance().writePaymentFile();
+                    BookingFileService.getInstance().writeBookingList();
                     break;
+                default:
+                    System.out.println("Invalid input");
             }
         }
     }

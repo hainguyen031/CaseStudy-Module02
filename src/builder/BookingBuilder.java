@@ -4,6 +4,8 @@ import entity.Booking;
 import entity.Car;
 import entity.Customer;
 
+import java.time.LocalDate;
+
 public class BookingBuilder implements InterfaceBookingBuilder {
     protected String name;
     protected String cccd;
@@ -12,8 +14,8 @@ public class BookingBuilder implements InterfaceBookingBuilder {
     protected String model;
     protected String seat;
     protected String rentalPrice;
-    protected String startDate;
-    protected String endDate;
+    protected LocalDate startDate;
+    protected LocalDate endDate;
     protected Customer customer;
     protected Car car;
     private static final BookingBuilder bookingBuilder = new BookingBuilder();
@@ -68,13 +70,13 @@ public class BookingBuilder implements InterfaceBookingBuilder {
     }
 
     @Override
-    public InterfaceBookingBuilder startDate(String startDate) {
+    public InterfaceBookingBuilder startDate(LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
 
     @Override
-    public InterfaceBookingBuilder endDate(String endDate) {
+    public InterfaceBookingBuilder endDate(LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }

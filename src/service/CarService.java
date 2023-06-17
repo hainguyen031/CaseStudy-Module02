@@ -1,6 +1,8 @@
 package service;
 
+import entity.Booking;
 import entity.Car;
+import service.File.BookingFileService;
 import service.sort.SortCarByModel;
 import service.sort.SortCarByPrice;
 import service.sort.SortCarBySeat;
@@ -9,8 +11,10 @@ import view.CustomerView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 public class CarService {
+    Scanner sc = new Scanner(System.in);
     private static List<Car> carList;
     private static final CarService carService = new CarService();
 
@@ -45,6 +49,11 @@ public class CarService {
         }
     }
 
+    public void showListForStaff() {
+        for (Car ele : carList) {
+            System.out.println(ele.toStringForStaff());
+        }
+    }
 
     public void SortCarByPrice() {
         Collections.sort(carList, new SortCarByPrice());
@@ -151,4 +160,6 @@ public class CarService {
         }
         return null;
     }
+
+
 }

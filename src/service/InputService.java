@@ -4,6 +4,7 @@ import builder.CarBuilder;
 import entity.Car;
 import entity.Customer;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -16,14 +17,15 @@ public class InputService {
     private final String PASSWORD_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
     private final String NAME_REGEX = "^[a-zA-Z\\s]+";
     private final String EMAIL_REGEX = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-    private final String MODEL_REGEX = "^[a-zA-Z0-9]+";
+    private final String MODEL_REGEX = "^[a-zA-Z0-9,]+";
     private final String SEAT_REGEX = "^[0-9]+";
     private final String PHONE_REGEX = "^\\d{10}$";
     private final String CCCD_REGEX = "^\\d{12}$";
     private final String GPLX_REGEX = "^\\d{12}$";
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final String DATE_REGEX = "^\\d{2}/\\d{2}/\\d{4}$";
+    private final String LOCATION_REGEX = "^[a-zA-Z0-9,\\s]+$";
 
     public static InputService getInstance() {
         return inputService;
@@ -83,6 +85,9 @@ public class InputService {
             case "enddate":
                 regex = DATE_REGEX;
                 break;
+            case "pickupLocation":
+                regex = LOCATION_REGEX;
+                break;
         }
         Pattern pattern = Pattern.compile(regex);
         String text;
@@ -95,6 +100,25 @@ public class InputService {
                 return text;
             } else {
                 System.out.println("Invalid " + typeInfo);
+            }
+        }
+    }
+
+    public LocalDate inputDate() {
+        Pattern pattern = Pattern.compile(DATE_REGEX);
+        String text;
+        while (true) {
+            System.out.println("Input date (dd/mm/yyyy): ");
+            text = scanner.nextLine();
+            Matcher matcher = pattern.matcher(text);
+            if (matcher.matches()) {
+                try {
+                    return LocalDate.parse(text, DATE_FORMATTER);
+                } catch (Exception e) {
+                    System.out.println("Invalid date");
+                }
+            } else {
+                System.out.println("Invalid date");
             }
         }
     }
@@ -128,7 +152,6 @@ public class InputService {
                 .available(true)
                 .build();
     }
-
 
 
 }

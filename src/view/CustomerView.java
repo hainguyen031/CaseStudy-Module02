@@ -1,10 +1,10 @@
 package view;
 
-import service.CustomerService;
+import service.*;
 import service.File.BookingFileService;
+import service.File.CarFileService;
+import service.File.PaymentFileService;
 import service.File.UserFileService;
-import service.InputService;
-import service.CarService;
 
 
 public class CustomerView {
@@ -12,10 +12,15 @@ public class CustomerView {
 
     private CustomerView() {
     }
-    private final int SHOWLISIST_CAR = 1;
+
+    private final int SHOWLIST_CAR = 1;
     private final int SEARCH_CAR = 2;
     private final int DETAIL_CAR = 3;
     private final int BOOK_CAR = 4;
+    private final int VIEW_HISTORY_BOOKING = 5;
+    private final int RECEIPT = 6;
+    private final int LOGOUT = 7;
+
     public static CustomerView getInstance() {
         return customerView;
     }
@@ -26,19 +31,18 @@ public class CustomerView {
         System.out.println("2. Search car");
         System.out.println("3. View car detail");
         System.out.println("4. Book car");
-        System.out.println("5. Down payment");
-        System.out.println("6. History");
-        System.out.println("7. Invoice");
-        System.out.println("9. Logout");
+        System.out.println("5. View history booking");
+        System.out.println("6. Receipt");
+        System.out.println("7. Logout");
     }
 
     public void runCustomerView() {
         int choice = 0;
-        while (choice != 9) {
+        while (choice != LOGOUT) {
             displayCustomerView();
             choice = InputService.getInstance().inputChoice();
             switch (choice) {
-                case SHOWLISIST_CAR:
+                case SHOWLIST_CAR:
                     CarService.getInstance().showList();
                     break;
                 case SEARCH_CAR:
@@ -48,25 +52,24 @@ public class CustomerView {
                     CarService.getInstance().showDetailCar();
                     break;
                 case BOOK_CAR:
-                    CustomerService.getInstance().bookCar();
-                    BookingFileService.getInstance().writeBookingList();
+                    BookingService.getInstance().bookCar();
                     break;
-                case 5:
-
+                case VIEW_HISTORY_BOOKING:
+                    BookingService.getInstance().showHistoryBooking(); //chua xong
                     break;
-                case 6:
-
+                case RECEIPT:
+                    PaymentService.getInstance().showPayment(); //chua xong
                     break;
-                case 7:
-
-                    break;
-                case 9:
+                case LOGOUT:
                     System.out.println("Logout successfully !");
                     UserFileService.getInstance().writeUserList();
                     BookingFileService.getInstance().writeBookingList();
-                    BeginView.getInstance().runBeginMenu();
-//                    exit = true;
+                    PaymentFileService.getInstance().writePaymentFile();
+                    CarFileService.getInstance().writeCarList();
+//                    BeginView.getInstance().runBeginMenu();
                     break;
+                default:
+                    System.out.println("Invalid input");
             }
         }
     }

@@ -1,6 +1,8 @@
 package view;
 
+import service.File.BookingFileService;
 import service.File.CarFileService;
+import service.File.PaymentFileService;
 import service.File.UserFileService;
 import service.InputService;
 import service.UserService;
@@ -14,6 +16,8 @@ public class BeginView {
     private BeginView() {
         UserFileService.getInstance().readUserList();
         CarFileService.getInstance().readCarList();
+        BookingFileService.getInstance().readBookingList();
+        PaymentFileService.getInstance().readPaymentFile();
     }
 
     public static BeginView getInstance() {
@@ -40,7 +44,7 @@ public class BeginView {
                 case LOGIN:
                     if (LoginView.getInstance().displayLoginMenu()) {
                         if (UserService.getInstance().getCurrentUser().getId() == 0) {
-                            StaffView.getInstance().runStaffView(); // chua lam staff
+                            StaffView.getInstance().runStaffView();
                         } else {
                             CustomerView.getInstance().runCustomerView();
                         }
@@ -54,6 +58,10 @@ public class BeginView {
                     break;
                 case EXIT:
                     UserFileService.getInstance().writeUserList();
+                    CarFileService.getInstance().writeCarList();
+                    BookingFileService.getInstance().writeBookingList();
+                    PaymentFileService.getInstance().writePaymentFile();
+                    System.out.println("Goob bye !!!");
                     break;
                 default:
                     System.out.println("Invalid input");

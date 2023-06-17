@@ -1,6 +1,7 @@
 package service.File;
 
 import builder.BookingBuilder;
+import builder.CarBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
@@ -15,6 +16,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,7 @@ public class BookingFileService {
     private static final BookingFileService bookingFileService = new BookingFileService();
     private final String BOOKING_FILEPATH = "E:\\CODEGYM\\CaseStudy-Module02\\src\\data\\booking.csv";
 
-    public BookingFileService() {
-    }
+    public BookingFileService() {}
 
     List<Booking> bookingList = BookingService.getInstance().getBookingList();
 
@@ -31,21 +32,54 @@ public class BookingFileService {
         return bookingFileService;
     }
 
+    public boolean isBookingExist() {
+        try {
+            FileReader fileReader = new FileReader(new File(BOOKING_FILEPATH));
+            CSVReader csvReader = new CSVReader(fileReader);
+            String[] data;
+            while ((data = csvReader.readNext()) != null) {
+                if (data.length >= 2) {
+                    String id = data[3];
+                    LocalDate startDate = LocalDate.parse(data[5]);
+                    for (Booking booking : BookingService.getInstance().getBookingList()) {
+                        if (booking.getId() == Integer.parseInt(id) && startDate.equals(booking.getStartDate())) {
+                            return true;
+                        }
+                    }
+
+                }
+            }
+            csvReader.close();
+            fileReader.close();
+        }catch (IOException exception) {
+            System.err.println("Read file Error");
+            exception.printStackTrace();
+        } catch (CsvValidationException e) {
+            throw new RuntimeException(e);
+        }
+        return false; // Booking does not exist
+    }
     public void writeBookingList() {
+        if (isBookingExist()) {
+            return;
+        }
         try {
             FileWriter fileWriter = new FileWriter(new File(BOOKING_FILEPATH));
             CSVWriter csvWriter = new CSVWriter(fileWriter, CSVWriter.DEFAULT_SEPARATOR,
                     CSVWriter.NO_QUOTE_CHARACTER,
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
-            for (Booking booking : bookingList) {
+            for (Booking booking : BookingService.getInstance().getBookingList()) {
                 String[] bookingData = {
                         booking.getCustomer().getUsername(),
                         booking.getCustomer().getPhone(),
                         booking.getCustomer().getEmail(),
+                        String.valueOf(booking.getCar().getId()),
                         booking.getCar().getModel(),
-                        booking.getStartDate().toString(),
-                        booking.getEndDate().toString()
+                        String.valueOf(booking.getStartDate()),
+                        String.valueOf(booking.getEndDate()),
+                        //booking.getPickupLocation(),
+                        String.valueOf(booking.getDeposit())
                 };
                 csvWriter.writeNext(bookingData);
             }
@@ -58,42 +92,28 @@ public class BookingFileService {
     }
 
     public void readBookingList() {
-        List<Booking> bookings = new ArrayList<>();
-
         try {
             FileReader fileReader = new FileReader(new File(BOOKING_FILEPATH));
             CSVReader csvReader = new CSVReader(fileReader);
-//            String[] dataList;
-//            List<Booking> bookingList = BookingService.getInstance().getBookingList();
-//            while ((dataList = csvReader.readNext()) != null) {
-//                if (dataList.length >= 2) {
-//                    Customer customer = new Customer();
-//                    customer.setName(dataList[0]);
-//                    Booking newBooking = BookingBuilder.getInstance()
-//                            .customer(customer)
-//                            .car(dataList[1])
-//                            .startDate(dataList[2])
-//                            .endDate(dataList[3])
-//                            .build();
-//                    BookingService.getInstance().getBookingList().add(newBooking);
-//                }
-//            }
             String[] bookingData;
             while ((bookingData = csvReader.readNext()) != null) {
-                if (bookingData.length >= 4) {
+                if (bookingData.length >= 2) {
                     String username = bookingData[0];
                     String phone = bookingData[1];
                     String email = bookingData[2];
-                    String carModel = bookingData[3];
-                    String startDate = bookingData[4];
-                    String endDate = bookingData[5];
-
+                    String id = bookingData[3];
+                    String carModel = bookingData[4];
+                    LocalDate startDate = LocalDate.parse(bookingData[5]);
+                    LocalDate endDate = LocalDate.parse(bookingData[6]);
+                    //String pickupLocation = bookingData[7];
+                    String deposit = bookingData[7];
                     // Tạo đối tượng Booking từ thông tin đọc được
                     Customer customer = UserService.getInstance().getCustomerByUsername(username);
-                    Car car = CarService.getInstance().getCarByModel(carModel);
+                    Car car = CarService.getInstance().getCarById(Integer.parseInt(id));
                     Booking booking = new Booking(customer, car, startDate, endDate);
-
-                    bookings.add(booking);
+                    //booking.setPickupLocation(pickupLocation);
+                    //booking.setDeposit(Integer.parseInt(deposit));
+                    BookingService.getInstance().getBookingList().add(booking);
                 }
             }
             csvReader.close();
