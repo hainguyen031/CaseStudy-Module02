@@ -23,6 +23,7 @@ public class BookingBuilder implements InterfaceBookingBuilder {
     protected LocalDate endDate;
     protected String pickupLocation;
     protected int deposit;
+    protected int bookingId;
     private static final BookingBuilder bookingBuilder = new BookingBuilder();
     private BookingBuilder() {}
     public static BookingBuilder getInstance() {
@@ -113,6 +114,12 @@ public class BookingBuilder implements InterfaceBookingBuilder {
     }
 
     @Override
+    public InterfaceBookingBuilder bookingId(int bookingId) {
+        this.bookingId = bookingId;
+        return this;
+    }
+
+    @Override
     public Booking build() {
         return new Booking(
                 new Customer(username, phone, email, cccd, gplx),
@@ -120,6 +127,7 @@ public class BookingBuilder implements InterfaceBookingBuilder {
                 startDate,
                 endDate,
                 pickupLocation,
-                deposit);
+                deposit,
+                bookingId);
     }
 }

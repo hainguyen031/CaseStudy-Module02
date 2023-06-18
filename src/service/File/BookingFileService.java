@@ -37,10 +37,12 @@ public class BookingFileService {
             String[] data;
             while ((data = csvReader.readNext()) != null) {
                 if (data.length >= 2) {
-                    String id = data[5];
+                    String carId = data[5];
                     LocalDate startDate = LocalDate.parse(data[10]);
                     for (Booking booking : BookingService.getInstance().getBookingList()) {
-                        if (booking.getId() == Integer.parseInt(id) && startDate.equals(booking.getStartDate())) {
+                        if ((booking.getCar().getId() == Integer.parseInt(carId))
+                                && (startDate.equals(booking.getStartDate()))
+                        ) {
                             return true;
                         }
                     }
@@ -68,17 +70,6 @@ public class BookingFileService {
                     CSVWriter.DEFAULT_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
             for (Booking booking : BookingService.getInstance().getBookingList()) {
-//                String[] bookingData = {
-//                        booking.getCustomer().getUsername(),
-//                        booking.getCustomer().getPhone(),
-//                        booking.getCustomer().getEmail(),
-//                        String.valueOf(booking.getCar().getId()),
-//                        booking.getCar().getModel(),
-//                        String.valueOf(booking.getStartDate()),
-//                        String.valueOf(booking.getEndDate()),
-//                        booking.getPickupLocation(),
-//                        String.valueOf(booking.getDeposit())
-//                };
                 String[] data = booking.toArray();
                 csvWriter.writeNext(data);
             }
@@ -97,20 +88,6 @@ public class BookingFileService {
             String[] bookingData;
             while ((bookingData = csvReader.readNext()) != null) {
                 if (bookingData.length >= 2) {
-//                    String username = bookingData[0];
-//                    String phone = bookingData[1];
-//                    String email = bookingData[2];
-//                    String id = bookingData[3];
-//                    String carModel = bookingData[4];
-//                    LocalDate startDate = LocalDate.parse(bookingData[5]);
-//                    LocalDate endDate = LocalDate.parse(bookingData[6]);
-//                    String pickupLocation = bookingData[7];
-//                    String deposit = bookingData[8];
-//                    // Tạo đối tượng Booking từ thông tin đọc được
-//                    Customer customer = UserService.getInstance().getCustomerByUsername(username);
-//                    Car car = CarService.getInstance().getCarById(Integer.parseInt(id));
-//                    Booking booking = new Booking(customer, car, startDate, endDate, pickupLocation);
-//                    BookingService.getInstance().getBookingList().add(booking);
                     Booking newBooking = BookingBuilder.getInstance()
                             .username(bookingData[0])
                             .phone(bookingData[1])
@@ -140,4 +117,23 @@ public class BookingFileService {
         }
     }
 
+    public int readCurrentBookingId() {
+        try {
+            FileReader fileReader = new FileReader(new File(BOOKING_FILEPATH));
+            CSVReader csvReader = new CSVReader(fileReader);
+            String idString = "0";
+            String[] data;
+            while ((data = csvReader.readNext()) != null) {
+                if (data.length >= 2) {
+                    idString = data[13];
+                }
+            }
+            return Integer.parseInt(idString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (CsvValidationException e) {
+            throw new RuntimeException(e);
+        }
+        return 0;
+    }
 }

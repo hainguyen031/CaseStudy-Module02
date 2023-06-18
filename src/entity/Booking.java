@@ -3,9 +3,10 @@ package entity;
 import service.CustomerService;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 
 public class Booking {
-    private int id;
+    private int bookingId;
     private Customer customer;
     private Car car;
     private LocalDate startDate;
@@ -13,6 +14,15 @@ public class Booking {
     private String pickupLocation;
     private int deposit;
 
+    public Booking(Customer customer, Car car, LocalDate startDate, LocalDate endDate, String pickupLocation, int deposit, int bookingId) {
+        this.customer = customer;
+        this.car = car;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.pickupLocation = pickupLocation;
+        this.deposit = deposit;
+        this.bookingId = bookingId;
+    }
     public Booking(Customer customer, Car car, LocalDate startDate, LocalDate endDate, String pickupLocation, int deposit) {
         this.customer = customer;
         this.car = car;
@@ -70,15 +80,16 @@ public class Booking {
         this.deposit = deposit;
     }
 
-    public int getId() {
-        return id;
+    public int getBookingId() {
+        return bookingId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 
     public void showBookingInfo() {
+        System.out.println("Booking ID: " + bookingId);
         System.out.println("Name customer: " + customer.getName());
         System.out.println("Phone number: " + customer.getPhone());
         System.out.println("Email: " + customer.getEmail());
@@ -87,7 +98,7 @@ public class Booking {
         System.out.println("Car ID: " + car.getId());
         System.out.println("Brand car:" + car.getBrand());
         System.out.println("Model car: " + car.getModel());
-        System.out.println("Seats car:" + car.getSeats());
+        System.out.println("Number of seats:" + car.getSeats());
         System.out.println("Rental price: " + car.getRentPrice());
         System.out.println("StartDate: " + startDate);
         System.out.println("EndDate: " + endDate);
@@ -111,7 +122,8 @@ public class Booking {
                 String.valueOf(startDate),
                 String.valueOf(endDate),
                 pickupLocation,
-                String.valueOf(deposit)
+                String.valueOf(deposit),
+                String.valueOf(bookingId)
         };
     }
 }

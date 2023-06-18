@@ -62,6 +62,7 @@ public class BeginView {
                     BookingFileService.getInstance().writeBookingList();
                     PaymentFileService.getInstance().writePaymentFile();
                     System.out.println("Goob bye !!!");
+                    System.exit(3);
                     break;
                 default:
                     System.out.println("Invalid input");

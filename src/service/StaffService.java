@@ -63,9 +63,9 @@ public class StaffService {
             System.out.println("ID car: " + car.getId());
             System.out.println("Brand car: " + car.getBrand());
             System.out.println("Model car: " + car.getModel());
-            System.out.println("Start date rental: " + startDate);
-            System.out.println("End date rental: " + endDate);
-            System.out.println("Total date rental: " + numberOfDays);
+            System.out.println("Rental start date: " + startDate);
+            System.out.println("Rental end date: " + endDate);
+            System.out.println("Total rental days: " + numberOfDays);
             System.out.println("Rental price: " + car.getRentPrice());
             System.out.println("Surcharge (if any): " + surcharge);
             System.out.println("Total pay:" + (total + surcharge));
@@ -80,7 +80,8 @@ public class StaffService {
                     numberOfDays,
                     car.getRentPrice(),
                     surcharge,
-                    total);
+                    total,
+                    bookingCar.getBookingId());
             PaymentService.getInstance().getPaymentList().add(payment);
             BookingService.getInstance().getBookingList().remove(bookingCar);
             BookingFileService.getInstance().writeBookingList();
@@ -116,10 +117,14 @@ public class StaffService {
     }
 
     public void orderRentalLocation() {
-        System.out.println("-----Information on delivery of the car to the rental point-----");
-        System.out.println("Customer: ");
-        System.out.println("Order rental location: ");
-        System.out.println("Car information: ");
-        System.out.println("Delivery time: ");
+        for (Booking booking: BookingService.getInstance().getBookingList()) {
+            System.out.println("-----Information on delivery of the car to the rental point-----");
+            System.out.println("Customer: " + booking.getCustomer().getUsername());
+            System.out.println("Order rental location: " + booking.getPickupLocation());
+            System.out.println("Car information: ");
+            System.out.println("  -Brand: " + booking.getCar().getBrand());
+            System.out.println("  -Model: " + booking.getCar().getModel());
+            System.out.println("Delivery time: " + booking.getStartDate());
+        }
     }
 }

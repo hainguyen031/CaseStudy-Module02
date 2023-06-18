@@ -21,6 +21,7 @@ public interface InterfaceBookingBuilder {
     InterfaceBookingBuilder endDate(LocalDate endDate);
     InterfaceBookingBuilder pickupLocation(String pickupLocation);
     InterfaceBookingBuilder deposit(int deposit);
+    InterfaceBookingBuilder bookingId(int bookingId);
 
     Booking build();
 

@@ -65,7 +65,8 @@ public class BookingService {
         newCar.setAvailable(false);
         int deposit = 5000000;
         Booking booking = new Booking((Customer) UserService.getInstance().getCurrentUser(), newCar, startDate, endDate, pickupLocation, deposit);
-        booking.setId(newCarIDBook);
+        //booking.setId(newCarIDBook);
+        booking.setBookingId(BookingFileService.getInstance().readCurrentBookingId() + 1);
 
         booking.setPickupLocation(pickupLocation);
         BookingService.getInstance().getBookingList().add(booking);
@@ -75,6 +76,19 @@ public class BookingService {
     }
 
     public void showHistoryBooking() {
-        System.out.println("nothing");
+        if(bookingList.isEmpty()) {
+            System.out.println("No booking history");
+            return;
+        }
+        System.out.println("-----Booking history-----");
+        for (Booking booking : bookingList) {
+            System.out.println("Booking ID: " + booking.getBookingId());
+            System.out.println("Start date rental: " + booking.getStartDate());
+            System.out.println("End date rental: " + booking.getEndDate());
+            System.out.println("Car brand: " + booking.getCar().getBrand());
+            System.out.println("Car model: " + booking.getCar().getModel());
+            System.out.println("Number of seats: " + booking.getCar().getSeats());
+            System.out.println("Rental price: " + booking.getCar().getRentPrice());
+        }
     }
 }

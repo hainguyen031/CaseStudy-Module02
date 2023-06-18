@@ -17,5 +17,6 @@ public interface InterfacePaymentBuilder {
     InterfacePaymentBuilder rentalPrice(int rentalPrice);
     InterfacePaymentBuilder surcharge(int surcharge);
     InterfacePaymentBuilder total(int total);
+    InterfacePaymentBuilder bookingId(int bookingId);
     Payment build();
 }

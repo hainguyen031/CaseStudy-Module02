@@ -132,7 +132,7 @@ public class CarService {
                 System.out.println("ID: " + car.getId());
                 System.out.println("Brand: " + car.getBrand());
                 System.out.println("Model: " + car.getModel());
-                System.out.println("Seat: " + car.getSeats());
+                System.out.println("Number of seats: " + car.getSeats());
                 System.out.println("Rental price: " + car.getRentPrice());
                 System.out.println("Available: " + car.isAvailable());
                 System.out.println("Describe: " + car.getDescribe());

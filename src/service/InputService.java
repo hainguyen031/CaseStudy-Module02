@@ -158,4 +158,8 @@ public class InputService {
     }
 
 
+    public int inputBookingId() {
+        System.out.println("Input your booking ID:");
+        return Integer.parseInt(scanner.nextLine());
+    }
 }

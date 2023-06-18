@@ -2,7 +2,12 @@ package service.sort;
 import service.CarService;
 
 public class SortCarFactory {
-    public static void sortCar(String typeSearch) {
+    private static final SortCarFactory sortCarFactory = new SortCarFactory();
+    private SortCarFactory() {}
+    public static SortCarFactory getInstance() {
+        return sortCarFactory;
+    }
+    public void sortCar(String typeSearch) {
         if (typeSearch.equals("rentPrice")) {
             CarService.getInstance().SortCarByPrice();
             CarService.getInstance().showList();

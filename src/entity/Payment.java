@@ -15,6 +15,7 @@ public class Payment {
     private int rentPrice;
     private int surcharge;
     private int total;
+    private int bookingId;
 
     public Payment(int carId, String brand, String model, int rentPrice, LocalDate startDate, LocalDate endDate, int numberOfDays, int total) {
         this.carId = carId;
@@ -27,7 +28,7 @@ public class Payment {
         this.total = total;
     }
 
-    public Payment(String username, String phone, String email, int carId, String brand, String model, LocalDate startDate, LocalDate endDate, int numberOfDays, int rentPrice, int surcharge, int total) {
+    public Payment(String username, String phone, String email, int carId, String brand, String model, LocalDate startDate, LocalDate endDate, int numberOfDays, int rentPrice, int surcharge, int total, int bookingId) {
         this.username = username;
         this.phone = phone;
         this.email = email;
@@ -40,6 +41,7 @@ public class Payment {
         this.rentPrice = rentPrice;
         this.surcharge = surcharge;
         this.total = total;
+        this.bookingId = bookingId;
     }
 
     public String getUsername() {
@@ -138,6 +140,14 @@ public class Payment {
         this.total = total;
     }
 
+    public int getBookingId() {
+        return bookingId;
+    }
+
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
+    }
+
     public String[] toArray() {
         return new String[] {username,
                 phone,
@@ -148,7 +158,8 @@ public class Payment {
                 String.valueOf(numberOfDays),
                 String.valueOf(rentPrice),
                 String.valueOf(surcharge),
-                String.valueOf(total)
+                String.valueOf(total),
+                String.valueOf(bookingId)
         };
     }
 }

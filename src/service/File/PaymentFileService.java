@@ -97,6 +97,7 @@ public class PaymentFileService {
                             .rentalPrice(Integer.parseInt(data[9]))
                             .surcharge(Integer.parseInt(data[10]))
                             .total(Integer.parseInt(data[11]))
+                            .bookingId(Integer.parseInt(data[12]))
                             .build();
                     PaymentService.getInstance().getPaymentList().add(newPayment);
                 }

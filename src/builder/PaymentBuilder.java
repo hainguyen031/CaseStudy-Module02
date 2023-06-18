@@ -17,6 +17,7 @@ public class PaymentBuilder implements InterfacePaymentBuilder{
     protected int rentPrice;
     protected int surcharge;
     protected int total;
+    protected int bookingId;
     private static final PaymentBuilder paymentBuilder = new PaymentBuilder();
     private PaymentBuilder() {}
     public static PaymentBuilder getInstance() {
@@ -95,7 +96,13 @@ public class PaymentBuilder implements InterfacePaymentBuilder{
     }
 
     @Override
+    public InterfacePaymentBuilder bookingId(int bookingId) {
+        this.bookingId = bookingId;
+        return this;
+    }
+
+    @Override
     public Payment build() {
-        return new Payment(username, phone, email, carId, brand, model, startDate, endDate, numberOfDays, rentPrice, surcharge, total);
+        return new Payment(username, phone, email, carId, brand, model, startDate, endDate, numberOfDays, rentPrice, surcharge, total, bookingId);
     }
 }
