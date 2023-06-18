@@ -1,6 +1,5 @@
 package view;
 
-import entity.User;
 import service.UserService;
 
 import java.util.Scanner;

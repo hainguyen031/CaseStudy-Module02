@@ -1,7 +1,6 @@
 package view;
 
 import service.CarService;
-import service.CustomerService;
 import service.File.BookingFileService;
 import service.File.CarFileService;
 import service.File.PaymentFileService;
@@ -47,7 +46,7 @@ public class StaffView {
                     CarService.getInstance().showListForStaff();
                     break;
                 case ORDER_RENTAL_LOCATION:
-                    StaffService.getInstance().orderRentalLocation(); //chua xong
+                    StaffService.getInstance().orderRentalLocation();
                     break;
                 case PAYMENT:
                     StaffService.getInstance().processPayment();

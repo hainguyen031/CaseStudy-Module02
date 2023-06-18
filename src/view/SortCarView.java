@@ -3,7 +3,6 @@ package view;
 import service.InputService;
 import service.sort.SortCarFactory;
 
-import java.util.List;
 
 public class SortCarView {
     private static final SortCarView sortCarView = new SortCarView();
@@ -11,6 +10,10 @@ public class SortCarView {
     public static SortCarView getInstance() {
         return sortCarView;
     }
+    private final int SORT_PRICE = 1;
+    private final int SORT_MODEL = 2;
+    private final int SORT_SEAT = 3;
+    private final int BACK = 4;
     public void displaySortView() {
         System.out.println("-----SORT VIEW-----");
         System.out.println("1. Sort by price");
@@ -20,23 +23,23 @@ public class SortCarView {
     }
     public void runSortView() {
         int choice = 0;
-        while (choice != 4) {
+        while (choice != BACK) {
             displaySortView();
             choice = InputService.getInstance().inputChoice();
             switch (choice) {
-                case 1:
+                case SORT_PRICE:
                     SortCarFactory.getInstance().sortCar("rentPrice");
                     CustomerView.getInstance().runCustomerView();
                     break;
-                case 2:
+                case SORT_MODEL:
                     SortCarFactory.getInstance().sortCar("model");
                     CustomerView.getInstance().runCustomerView();
                     break;
-                case 3:
+                case SORT_SEAT:
                     SortCarFactory.getInstance().sortCar("seat");
                     CustomerView.getInstance().runCustomerView();
                     break;
-                case 4:
+                case BACK:
                     CustomerView.getInstance().runCustomerView();
                     break;
                 default:

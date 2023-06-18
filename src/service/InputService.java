@@ -34,16 +34,20 @@ public class InputService {
     public int[] inputPriceRange() {
         int[] result = new int[2];
         while (true) {
-            System.out.println("Input upper price range: ");
-            int upper = Integer.parseInt(scanner.nextLine());
-            System.out.println("Input lower price range: ");
-            int lower = Integer.parseInt(scanner.nextLine());
-            if (upper > lower) {
-                result[0] = lower;
-                result[1] = upper;
-                break;
-            } else {
-                System.out.println("Invalid input !");
+            try {
+                System.out.println("Input upper price range: ");
+                int upper = Integer.parseInt(scanner.nextLine());
+                System.out.println("Input lower price range: ");
+                int lower = Integer.parseInt(scanner.nextLine());
+                if (upper > lower) {
+                    result[0] = lower;
+                    result[1] = upper;
+                    break;
+                } else {
+                    System.out.println("Invalid input !");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter again.");
             }
         }
         return result;
@@ -115,51 +119,72 @@ public class InputService {
                 try {
                     return LocalDate.parse(text, DATE_FORMATTER);
                 } catch (Exception e) {
-                    System.out.println("Invalid date");
+                    System.out.println("Invalid date! Please enter a valid date");
                 }
             } else {
-                System.out.println("Invalid date");
+                System.out.println("Invalid date! Please enter a valid date");
             }
         }
     }
 
     public int inputChoice() {
         System.out.print("Input your choice: ");
-        return Integer.parseInt(scanner.nextLine());
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid integer.");
+            return inputChoice();
+        }
     }
 
     public int inputCarID() {
         System.out.println("Input the car ID:");
-        return Integer.parseInt(scanner.nextLine());
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid integer.");
+            return inputCarID();
+        }
     }
 
     public Car inputCarInfo() {
-        System.out.println("Input car brand: ");
-        String brand = scanner.nextLine();
-        System.out.println("Input car model: ");
-        String model = scanner.nextLine();
-        System.out.println("Input car seat: ");
-        int seat = Integer.parseInt(scanner.nextLine());
-        System.out.println("Input rental car: ");
-        int price = Integer.parseInt(scanner.nextLine());
-        System.out.println("Input describe car: ");
-        String descri = scanner.nextLine();
-        //String[] describe = new String[]{descri};
-//        CarService.getInstance().addCarToList(new Car(brand, model, seat, price, true));
-        System.out.println("Add car successful !");
-        return CarBuilder.getInstance()
-                .brand(brand)
-                .model(model)
-                .seats(seat)
-                .rentPrice(price)
-                .available(true)
-                .describe(descri)
-                .build();
+        try {
+            System.out.println("Input car brand: ");
+            String brand = scanner.nextLine();
+            System.out.println("Input car model: ");
+            String model = scanner.nextLine();
+            System.out.println("Input car seat: ");
+            int seat = Integer.parseInt(scanner.nextLine());
+            System.out.println("Input rental car: ");
+            int price = Integer.parseInt(scanner.nextLine());
+            System.out.println("Input describe car: ");
+            String descri = scanner.nextLine();
+            System.out.println("Add car successful !");
+            return CarBuilder.getInstance()
+                    .brand(brand)
+                    .model(model)
+                    .seats(seat)
+                    .rentPrice(price)
+                    .available(true)
+                    .describe(descri)
+                    .build();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid integer.");
+            scanner.nextLine(); // Đọc và loại bỏ dòng chứa giá trị không hợp lệ
+            return inputCarInfo(); // Gọi lại phương thức để yêu cầu nhập lại
+        }
+
     }
 
 
     public int inputBookingId() {
         System.out.println("Input your booking ID:");
-        return Integer.parseInt(scanner.nextLine());
+        try {
+            return Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter a valid integer.");
+            return inputBookingId();
+        }
+
     }
 }

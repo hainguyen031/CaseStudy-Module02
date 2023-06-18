@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 public class RegisterView {
     private static final RegisterView registerView = new RegisterView();
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
 
     private RegisterView() {
     }

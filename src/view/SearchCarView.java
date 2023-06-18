@@ -40,23 +40,22 @@ public class SearchCarView {
                     CarService.getInstance().displayCarListByIdWithPrice(carID);
                     System.out.println();
                     CustomerView.getInstance().runCustomerView();
-//                    break;
+                    break;
                 case BY_MODEL:
                     List<Integer> carId = SearchFactory.getInstance().getSearch("model").searchByCondition();
                     CarService.getInstance().displayCarListByIdWithModel(carId);
                     System.out.println();
                     CustomerView.getInstance().runCustomerView();
-//                    break;
+                    break;
                 case BY_SEAT:
                     List<Integer> cariD = SearchFactory.getInstance().getSearch("seat").searchByCondition();
                     CarService.getInstance().displayCarListByIdWithSeat(cariD);
                     System.out.println();
                     CustomerView.getInstance().runCustomerView();
-//                    break;
+                    break;
                 case GO_BACK:
-                    //ghi file
                     CustomerView.getInstance().runCustomerView();
-//                    break;
+                    break;
                 default:
                     System.out.println("Invalid input");
             }
